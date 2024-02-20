@@ -1,20 +1,20 @@
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 // Create a MySQL connection
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host: 'localhost',
-    database: 'emp',
-    user: 'root',
-    password: 'root'
+    user: 'root', // Provide the username
+    password: 'root', // Provide the password
+    database: 'emp'
 });
 
 // Connect to MySQL database
-db.connect((err) => {
+db.getConnection((err) => {
     if (err) {
         throw err;
     }
